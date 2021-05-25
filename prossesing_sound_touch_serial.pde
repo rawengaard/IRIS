@@ -1,6 +1,10 @@
+// This code is being run on a computer, while listening to input from an Arduino over the Serial port.
+
+
 import processing.serial.*;
 import ddf.minim.*;
 
+// create a player for each sound
 AudioPlayer player1;
 AudioPlayer player2;
 AudioPlayer player3;
@@ -13,23 +17,23 @@ AudioPlayer player9;
 AudioPlayer player10;
 AudioPlayer player11;
 
-Minim minim; //For å lese å bruke mp3 filer. 
+Minim minim; // To read and use mp3 files
 
 Serial port;
 int val;
 String inBuffer;
-int lf = 10; // ASCII linefeed 
+int lf = 10; // ASCII linefeed
 
 
 
 void setup() {
-   size(400, 400); // Sets upp size on processing window. 
+   size(400, 400);                          // Sets the size on the processing window.
    printArray(Serial.list());
    // print a list of all available ports
-   
+
    minim = new Minim(this);
-   
-   //Loading files to players. 
+
+   //Loading files to players.
    player1 = minim.loadFile("k1_klokke3_2 sek.mp3");
    player2 = minim.loadFile("takt tre_4 sek.mp3");
    player3 = minim.loadFile("k3_beat2_8 sek.mp3");
@@ -41,25 +45,24 @@ void setup() {
    player9 = minim.loadFile("Latter_4,2 sek.mp3");
    player10 = minim.loadFile("Nannanana_3,1 sek.mp3");
    player11 = minim.loadFile("k10_pizzicato_3,5 sek.mp3");
-   
-   // Setts up Serial-conection, choose the port to which the Arduino is connected 
+
+   // Sets up Serial-conection, chooses the port to which the Arduino is connected
    port = new Serial(this, Serial.list()[0], 9600);
-    
-   // Buffer until Linefeed. 
+
+   // Buffer until Linefeed.
    port.bufferUntil(lf);
 
 }
 void draw() {
   //inBuffer = "........";
   background(100);
-   text("received: " + inBuffer , 10,50); 
+   text("received: " + inBuffer , 10,50);                   // 
 
-     if (inBuffer!= null && inBuffer.equals("1")){ //equals
-       player1.play();
-           if (player1.position() == player1.length()){
-              player1.rewind();
-            }
-            redraw();
+     if (inBuffer!= null && inBuffer.equals("1")){          // if the input equals this number
+       player1.play();                                      // Starts playback from the current position. If this was previously set to loop, looping will be disabled.
+           if (player1.position() == player1.length()){     // if the position of the player is at the end of the file
+              player1.rewind();}                            // rewind back to start
+            redraw();                                       // update display window
      }
      if (inBuffer!= null && inBuffer.equals("2")){
        player2.play();
@@ -96,7 +99,7 @@ void draw() {
            if (player7.position() == player7.length() ){
               player7.rewind();}
               redraw();
-     }  
+     }
      if (inBuffer!= null && inBuffer.equals("8")){ //equals
        player8.play();
            if (player8.position() == player8.length() ){
@@ -108,7 +111,7 @@ void draw() {
            if (player9.position()== player9.length() ){
               player9.rewind();}
               redraw();
-     } 
+     }
      if (inBuffer!= null && inBuffer.equals("10")){ //equals
        player10.play();
            if (player10.position() == player10.length() ){
@@ -123,12 +126,12 @@ void draw() {
      }
 }
 
-// Controlles the input from Serial. 
-void serialEvent(Serial p) { 
-  inBuffer = p.readString(); 
-  inBuffer = inBuffer.trim().replace("\n","");
-  
-} 
+// Controls the input from Serial.
+void serialEvent(Serial p) {                            // when there is information input from Serial
+  inBuffer = p.readString();                            // read input
+  inBuffer = inBuffer.trim().replace("\n","");          // trim and remove newline
+
+}
 
 
 void stop(){
