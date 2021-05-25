@@ -86,10 +86,10 @@ int circle_9_delay  = 8000;
 int circle_10_delay = 3500;
 int circle_11_delay = 3000;
 
-// Turn on the leds on the cabinet (from Neopixel example code)
+// Turn on the leds on the cabinet
 void cabinet_leds(uint32_t color, int wait) {
   for(int i=0; i<strip_2.numPixels(); i++) {      // all the leds
-    strip_2.setPixelColor(i, color);              // set color to blue 
+    strip_2.setPixelColor(i, color);              // set color to blue
     strip_2.show();                               // update led
     delay(wait);                                  // pause for a moment between each pixel
   }
@@ -160,21 +160,21 @@ void display_leds(){
             strip.setPixelColor(i, off);
         }
     }
-    for (int i = 334; i<371; i++){                    // circle_8, 334-370, red
+    for (int i = 334; i<371; i++){                    // circle_10, 334-370, red
         if (circle_10_status == true){
             strip.setPixelColor(i, red);
         } else {
             strip.setPixelColor(i, off);
         }
     }
-    for (int i = 371; i<408; i++){                    // circle_9, 371-407, yellow
+    for (int i = 371; i<408; i++){                    // circle_11, 371-407, yellow
         if (circle_11_status == true){
             strip.setPixelColor(i, yellow);
         } else {
             strip.setPixelColor(i, off);
         }
     }
-    strip.show();
+    strip.show();                                     // show the updated LEDs
 }
 
     unsigned long now = millis();
@@ -182,18 +182,18 @@ void display_leds(){
 // ----------- S E T U P ------------------
 void setup(){
     Serial.begin(9600);
-    strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
-    strip.show();            // Turn OFF all pixels ASAP
-    strip.setBrightness(50); // Set BRIGHTNESS to about 1/5 (max = 255)
-    
+    strip.begin();           // Initialize NeoPixel strip object
+    strip.show();            // Turn off all pixels ASAP
+    strip.setBrightness(50); // Set brightness to about 1/5 (max = 255)
+
     strip_2.begin();
     strip_2.show();
     strip_2.setBrightness(50);
 
     // turn on the LEDs on the cabinet
-    cabinet_leds(strip_2.Color(  0,   0, 255), 50);   // Blue
-    delay(500);    
-    
+    cabinet_leds(strip_2.Color(  0,   0, 255), 50);    // Blue
+    delay(500);
+
     Serial.println("Setup complete.");
 
 }
@@ -257,9 +257,9 @@ void loop(){
     }
 
     // read sensors and update status
-    int threshold = 700;                                    // The threshold should be lower if the user is wearing socks, or is a small child
-    
-    int button = 1;                                         // The number we will send to Processing if the sensor detects a touch 
+    int threshold = 700;                                    // The threshold should be lower if the user is wearing socks, or is a small child. For an adult: 1000.
+
+    int button = 1;                                         // The number we will send to Processing if the sensor detects a touch
     long sensorValue = sensor_1.capacitiveSensor(30);       // Read the sensor value
     if (sensorValue > threshold) {                          // Touch detected
         if (circle_1_status == false){                      // if the circle is not active already
@@ -341,7 +341,7 @@ void loop(){
         }
     }button = 10;
     sensorValue = sensor_10.capacitiveSensor(30);
-    if (sensorValue > threshold) {                    // knappen er overfølsom. Høyere verdi er satt inn 
+    if (sensorValue > threshold) {
         if (circle_10_status == false){
             circle_10_status = true;
             circle_10_start = millis();
@@ -357,7 +357,7 @@ void loop(){
         }
     }
 
-    // If Arduino doesn't print a neutral number, Processing will continue to play the last sound over and over again. 
+    // If Arduino doesn't print a neutral number, Processing will continue to play the last sound over and over again.
     Serial.println(0);
 
     display_leds();
