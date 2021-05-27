@@ -28,8 +28,10 @@ int lf = 10; // ASCII linefeed
 
 void setup() {
    size(400, 400);                          // Sets the size on the processing window.
-   printArray(Serial.list());
-   // print a list of all available ports
+   printArray(Serial.list());               // print a list of all available ports
+      
+   // Sets up Serial-conection, chooses the port to which the Arduino is connected
+   port = new Serial(this, Serial.list()[0], 9600);
 
    minim = new Minim(this);
 
@@ -46,20 +48,18 @@ void setup() {
    player10 = minim.loadFile("Nannanana_3,1 sek.mp3");
    player11 = minim.loadFile("k10_pizzicato_3,5 sek.mp3");
 
-   // Sets up Serial-conection, chooses the port to which the Arduino is connected
-   port = new Serial(this, Serial.list()[0], 9600);
+
 
    // Buffer until Linefeed.
    port.bufferUntil(lf);
 
 }
 void draw() {
-  //inBuffer = "........";
   background(100);
-   text("received: " + inBuffer , 10,50);                   // 
+   text("received: " + inBuffer , 10,50);                   // prints input value fro Arduino at coordinates 10,50. 
 
-     if (inBuffer!= null && inBuffer.equals("1")){          // if the input equals this number
-       player1.play();                                      // Starts playback from the current position. If this was previously set to loop, looping will be disabled.
+     if (inBuffer!= null && inBuffer.equals("1")){          // if is not null and the input equals this number
+       player1.play();                                      // Starts playback
            if (player1.position() == player1.length()){     // if the position of the player is at the end of the file
               player1.rewind();}                            // rewind back to start
             redraw();                                       // update display window
