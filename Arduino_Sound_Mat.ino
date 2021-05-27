@@ -6,8 +6,8 @@
     and send a signal to a computer to play sounds. That way, this mat will serve as an instrument.
 */
 
-#include <Adafruit_NeoPixel.h>
-#include <CapacitiveSensor.h>
+#include <Adafruit_NeoPixel.h>      
+#include <CapacitiveSensor.h>       
 
 // constants holding the colors
 const auto red       = Adafruit_NeoPixel::Color(255,   0,   0);
@@ -181,7 +181,7 @@ void display_leds(){
 
 // ----------- S E T U P ------------------
 void setup(){
-    Serial.begin(9600);
+    Serial.begin(9600);     // Initialize Serialconection
     strip.begin();           // Initialize NeoPixel strip object
     strip.show();            // Turn off all pixels ASAP
     strip.setBrightness(50); // Set brightness to about 1/5 (max = 255)
