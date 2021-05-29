@@ -1,0 +1,13 @@
+Circle		  KEYWORD1
+_my_status    KEYWORD2
+_timer_start  KEYWORD2
+_my_delay	  KEYWORD2
+_startLed     KEYWORD2
+_endLed       KEYWORD2
+_color        KEYWORD2
+get_status	  KEYWORD2
+activate	  KEYWORD2
+check_timer	  KEYWORD2
+get_start     KEYWORD2
+get_end       KEYWORD2
+myColor       KEYWORD2
