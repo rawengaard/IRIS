@@ -1,7 +1,7 @@
 /*
     IRIS - Spire - IN1060 - v21
 
-    This is the main program for the Sound Mat. The mat has 11 circles the user is
+    This is the main program for the IRIS sound mat. The mat has 11 circles the user is
     supposed to step on. When stepped on, the sensor will activate the circle, display leds,
     and send a signal to a computer to play sounds. That way, this mat will serve as an instrument.
 */
@@ -29,9 +29,9 @@ const uint32_t off    = Adafruit_NeoPixel::Color(0x00, 0x00, 0x00);
 // store the circles in a list
 // Circle(delay, startLed, endLed, color)
  Circle circles[] = {
-  {2000, 0, 37, yellow}, {3000, 38, 74, red}, {2000, 75, 111, orange}, {2000, 112, 148, green},
-  {2000, 149, 185, red}, {2000, 185, 222, orange}, {2000, 223, 259, red}, {2000, 260, 296, yellow},
-  {2000, 297, 333, orange}, {2000, 334, 370, red}, {2000, 371, 407, yellow}
+  {2000, 0, 37, yellow}, {4000, 38, 74, red}, {8000, 75, 111, orange}, {3000, 112, 148, green},
+  {3000, 149, 185, red}, {4200, 185, 222, orange}, {3000, 223, 259, red}, {2000, 260, 296, yellow},
+  {4200, 297, 333, orange}, {3100, 334, 370, red}, {3500, 371, 407, yellow}
 };
 
 const byte circleCount = sizeof circles / sizeof circles[0];       // the number of circles
