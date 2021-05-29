@@ -37,7 +37,7 @@ const uint32_t off    = Adafruit_NeoPixel::Color(0x00, 0x00, 0x00);
 const byte circleCount = sizeof circles / sizeof circles[0];       // the number of circles
 // sizeof(array) returns the number of bytes the array occupies.
 // Since each element can take more than 1 byte of space, the result have to be divided by
-// the size of one element (sizeof(array[0]). This gives you the number og elements in the array
+// the size of one element (sizeof(array[0])). This gives you the number og elements in the array
 
 // read a sensor, update the status of the Circle
 void readSensor(byte i, CapacitiveSensor& sensor, Circle& circle) {
@@ -82,10 +82,10 @@ void setup() {
 }
 
 void loop() {
-  for (byte i = 0; i < circleCount; i++) {
-    circles[i].checkTimer();
-    readSensor(i,  sensors[i],  circles[i]);
-    displayLeds(circles[i]);
+  for (byte i = 0; i < circleCount; i++) {          // for each Circle
+    circles[i].checkTimer();                        // check the timer to deactivate the Circle if needed
+    readSensor(i,  sensors[i],  circles[i]);        // read the sensor, and activate the Circle if there is a touch registered
+    displayLeds(circles[i]);                        // update the Leds
   }
   //Serial.println("0");            // this will stop Processing from repeating the last sound again and again
 }
